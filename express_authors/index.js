@@ -2,8 +2,34 @@ const express = require('express');
 
 const app = express();
 
-const authors = ['Lawrence Nowell, UK','William Shakespeare, UK','Charles Dickens, US','Oscar Wilde, UK'];
-const books = ['Beowulf','Hamlet, Othello, Romeo and Juliet, MacBeth','Oliver Twist, A Christmas Carol','The Picture of Dorian Gray, The Importance of Being Earnest']
+let authors = ['Lawrence Nowell, UK','William Shakespeare, UK','Charles Dickens, US','Oscar Wilde, UK'];
+let books = ['Beowulf','Hamlet, Othello, Romeo and Juliet, MacBeth','Oliver Twist, A Christmas Carol','The Picture of Dorian Gray, The Importance of Being Earnest']
+let authors_books = [
+    {
+        id : 1,
+        name : "Lawrence Nowell",
+        nationality : "UK",
+        books : ["Beowulf"],
+    },
+    {
+        id : 1,
+        name : "William Shakespeare",
+        nationality : "UK",
+        books : ["Hamlet, Othello, Romeo and Juliet, MacBeth"],
+    },
+    {
+        id : 1,
+        name : "Charles Dickens",
+        nationality : "US",
+        books : ["Oliver Twist, A Christmas Carol"],
+    },
+    {
+        id : 1,
+        name : "Oscar Wilde",
+        nationality : "UK",
+        books : ["The Picture of Dorian Gray, The Importance of Being Earnest"],
+    }
+]
 
 app.get('/', (req, res, next) => {
     console.log('Authors API')
@@ -54,3 +80,32 @@ app.get('/authors/12133/', (req, res) => {
 app.listen(3000, () => {
     console.log ('SERVEUR LISTENING')
 })
+
+//strucure complexe auteurs + livres
+
+app.get('/json/authors/:id/', (req, res) => {
+    const id = req.params.id;
+
+    if (id > authors_books.length) {
+        res.send(`The author with the ID ${id} does not exist`);
+    } else {
+        const { name, nationality } = authors_books[id - 1]
+
+        res.json({
+            name,
+            nationality
+        });
+    }
+});
+
+app.get('/json/authors/:id/books', (req, res) => {
+    const id = req.params.id;
+
+    if (id > authors.length) {
+        res.send(`The author with the ID ${id} does not exist`);
+    } else {
+        const { books } = authors_books[id - 1]
+
+        res.json({ books });
+    }
+});
