@@ -1,0 +1,23 @@
+<body>
+
+    <h1>{{title}}</h1>
+
+    <form method="post" action="/upload">
+
+        <div class="form-control">
+
+            <label class="header">Photo de profil:</label>
+            <input type="image" src="../public/profil.jpg" alt="photo_de_profil" placeholder="Photo" >
+        
+        </div>
+
+        <label>Identifiant : <input name="username" type="text"></label><br>
+        <button type="submit">Envoyer</button>
+
+    </form>
+
+    {{#if username }}
+    <h2>Vous avez entré "{{username}}"</h2>
+    {{/if}}
+
+</body>

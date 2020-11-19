@@ -20,6 +20,10 @@ app.get('/views/home.handlebars', function (req, res) {
     res.render('home');
 });
 
+app.post('/students/add', function (req, res) {
+    res.render('form');
+});
+
 app.listen(3003, () => {
     console.log ('SERVEUR LISTENING')
 })
